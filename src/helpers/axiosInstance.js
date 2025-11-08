@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:8000/api/v1';
-// const BASE_URL = 'https://todo-backend-bpom.onrender.com/api/v1';
+// const BASE_URL = 'http://localhost:8000/api/v1';
+const BASE_URL = 'https://todo-backend-bpom.onrender.com/api/v1';
 
 // https://todo-backend-bpom.onrender.com
 const axiosInstance = axios.create() ;
