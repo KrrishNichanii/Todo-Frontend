@@ -2,10 +2,13 @@ import axiosInstance from '../helpers/axiosInstance';
 
 
 const loginUser = async (email, password) => {
-    const payload = { email, password };
-    const response = await axiosInstance.post('/users/login', payload);
-    
-    return response.data;
+  const payload = { email, password };
+  const response = await axiosInstance.post('/users/login', payload);
+
+  const userData = response.data.user || response.data; 
+  localStorage.setItem('user', JSON.stringify(userData));
+
+  return response.data;
 };
 
 
