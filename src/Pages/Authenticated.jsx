@@ -8,26 +8,34 @@ function Authenticated() {
   const [user, setUser] = useState(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser.user);
-
-        // ✅ If user visits /auth directly, redirect to /auth/todos
-        if (location.pathname === '/auth') {
-          navigate('/auth/todos', { replace: true });
-        }
-      } catch {
+ useEffect(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    try {
+      const parsedUser = JSON.parse(storedUser);
+      
+      if (!parsedUser.isActive) {
+        alert("Your account is inactive. Please contact the admin.");
         localStorage.removeItem('user');
-        localStorage.removeItem('todos_list');
         navigate('/signin');
+        return;
       }
-    } else {
+
+      setUser(parsedUser);
+
+      if (location.pathname === '/auth') {
+        navigate('/auth/todos', { replace: true });
+      }
+    } catch {
+      localStorage.removeItem('user');
+      localStorage.removeItem('todos_list');
       navigate('/signin');
     }
-  }, [navigate, location.pathname]);
+  } else {
+    navigate('/signin');
+  }
+}, [navigate, location.pathname]);
+
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
