@@ -15,7 +15,6 @@ function TodoPage() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Load user info from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -46,7 +45,6 @@ function TodoPage() {
     fetchTodos();
   }, []);
 
-  // ✅ Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewTodo((prev) => ({ ...prev, [name]: value }));
